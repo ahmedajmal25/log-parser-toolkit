@@ -42,7 +42,7 @@ log_toolkit/
 ### 🔧 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/log-parser-toolkit.git
+git clone https://github.com/ahmedajmal25/log-parser-toolkit.git
 cd log-parser-toolkit
 ```
 
@@ -81,12 +81,6 @@ The filtered or unfiltered log entries are exported to `log_output.csv`.
 
 ---
 
-## 📜 License
-
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
----
-
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve the toolkit.
@@ -95,4 +89,4 @@ Contributions are welcome! Feel free to open issues or submit pull requests to i
 
 ## 📧 Contact
 
-For questions or feedback, please contact [your_email@example.com].
+For questions or feedback, please contact [ahmedajmal.ajmal@gmail.com].

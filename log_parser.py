@@ -12,18 +12,34 @@ class LogParser:
         self.logs = []  # List to store the raw log lines
 
     def load_logs(self):
+        """
+        Reads the log file line by line and yields each line after stripping whitespace.
+        This method is implemented as a generator to handle large files efficiently.
+        
+        Why use a generator?
+        - Generators allow processing one line at a time without loading the entire file into memory.
+        - This is particularly useful for large log files, as it reduces memory usage and improves performance.
+        """
         with open(self.filepath, 'r') as f:
             for line in f:
-                yield line.strip()
-
+                yield line.strip()  # Yield each line without leading/trailing whitespace
 
     def extract_entries(self):
+        """
+        Extracts log entries from the loaded logs using a regular expression pattern.
+        The pattern expects log lines in the format: [timestamp] LEVEL - message.
+        Returns:
+            list: A list of dictionaries containing parsed log entries with keys:
+                  'timestamp', 'level', and 'message'.
+        """
+        # Regex pattern to extract timestamp, log level, and message
         pattern = r'\[(.*?)\] (\w+) - (.*)'
-        parsed = []
+        parsed = []  # List to store parsed log entries
 
         for line in self.load_logs():
-            match = re.match(pattern, line)
+            match = re.match(pattern, line)  # Match the pattern against each log line
             if match:
+                # Extract matched groups: timestamp, level, and message
                 timestamp, level, message = match.groups()
                 parsed.append({
                     'timestamp': timestamp,
@@ -31,8 +47,7 @@ class LogParser:
                     'message': message
                 })
 
-        return parsed
-
+        return parsed  # Return the list of parsed entries
 
     def count_by_level(self, entries):
         """
@@ -46,7 +61,7 @@ class LogParser:
         for entry in entries:
             level = entry['level']  # Get the log level of the entry
             count[level] = count.get(level, 0) + 1  # Increment the count for the level
-        return count
+        return count  # Return the dictionary of counts
 
     def export_to_csv(self, entries, filename='log_output.csv'):
         """
@@ -75,6 +90,7 @@ class LogParser:
         """
         # Filter entries where the level matches the target level (case-insensitive)
         return [entry for entry in entries if entry['level'] == target_level.upper()]
+
     def filter_by_message(self, entries, target_message):
         """
         Filters log entries by a specific log message.
